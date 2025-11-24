@@ -1,53 +1,81 @@
-| Supported Targets | ESP32 | ESP32-C2 | ESP32-C3 | ESP32-C5 | ESP32-C6 | ESP32-C61 | ESP32-H2 | ESP32-H21 | ESP32-H4 | ESP32-P4 | ESP32-S2 | ESP32-S3 | Linux |
-| ----------------- | ----- | -------- | -------- | -------- | -------- | --------- | -------- | --------- | -------- | -------- | -------- | -------- | ----- |
+# 🌡️ IoT Project – ESP32 + DHT11 + ThingSpeak (HTTP)
 
-# Hello World Example
+Ce projet utilise une **ESP32**, un capteur **DHT11**, et le protocole **HTTP** pour envoyer les données de température et d’humidité vers **ThingSpeak** afin de les visualiser en temps réel 📈.
 
-Starts a FreeRTOS task to print "Hello World".
+---
 
-(See the README.md file in the upper level 'examples' directory for more information about examples.)
+## 📷 Résultat sur ThingSpeak
 
-## How to use example
+Voici un aperçu du graphique obtenu sur ThingSpeak :
 
-Follow detailed instructions provided specifically for this example.
+![ThingSpeak](https://github.com/user-attachments/assets/0a7f237e-cf65-4604-9a4a-892921b0dbc4)
 
-Select the instructions depending on Espressif chip installed on your development board:
+---
 
-- [ESP32 Getting Started Guide](https://docs.espressif.com/projects/esp-idf/en/stable/get-started/index.html)
-- [ESP32-S2 Getting Started Guide](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s2/get-started/index.html)
+## ⚙️ Matériel utilisé
+
+| Composant | Description |
+|-----------|-------------|
+| ESP32 | Microcontrôleur Wi-Fi |
+| DHT11 | Capteur Température & Humidité |
+| Câbles Dupont | Connexions |
+| ThingSpeak | Plateforme IoT Cloud |
+
+---
+
+## 🧠 Fonctionnement
+
+1. L’ESP32 lit la température et humidité via le **DHT11**.
+2. Connexion au Wi-Fi (mode station).
+3. Envoi des données vers **ThingSpeak via HTTP GET**.
+4. Visualisation en temps réel sur dashboard.
+
+---
+
+## 🌐 Architecture Réseau
+
+ESP32 → Wi-Fi → TCP/IP → HTTP GET → ThingSpeak Cloud
 
 
-## Example folder contents
+---
 
-The project **hello_world** contains one source file in C language [hello_world_main.c](main/hello_world_main.c). The file is located in folder [main](main).
+## 🔌 Connexions du DHT11
 
-ESP-IDF projects are built using CMake. The project build configuration is contained in `CMakeLists.txt` files that provide set of directives and instructions describing the project's source files and targets (executable, library, or both).
+| DHT11 Pin | ESP32 GPIO |
+|-----------|-----------|
+| VCC | 3.3V |
+| GND | GND |
+| DATA | GPIO 4 |
 
-Below is short explanation of remaining files in the project folder.
+---
 
-```
-├── CMakeLists.txt
-├── pytest_hello_world.py      Python script used for automated testing
-├── main
-│   ├── CMakeLists.txt
-│   └── hello_world_main.c
-└── README.md                  This is the file you are currently reading
-```
+## 🧾 Code source principal (`main.c`)
 
-For more information on structure and contents of ESP-IDF projects, please refer to Section [Build System](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/build-system.html) of the ESP-IDF Programming Guide.
+Le code complet se trouve dans le dossier :  
 
-## Troubleshooting
+/main/main.c
 
-* Program upload failure
 
-    * Hardware connection is not correct: run `idf.py -p PORT monitor`, and reboot your board to see if there are any output logs.
-    * The baud rate for downloading is too high: lower your baud rate in the `menuconfig` menu, and try again.
+---
 
-## Technical support and feedback
+## 📡 Fonction HTTP utilisée
 
-Please use the following feedback channels:
+```c
+esp_http_client_config_t config = {
+    .url = url,
+    .method = HTTP_METHOD_GET,
+};
+esp_http_client_perform(client);
 
-* For technical queries, go to the [esp32.com](https://esp32.com/) forum
-* For a feature request or bug report, create a [GitHub issue](https://github.com/espressif/esp-idf/issues)
+➡️ Cela prouve que le protocole HTTP est bien utilisé pour l'envoi des données.
 
-We will get back to you as soon as possible.
+🚀 Résultat sur ThingSpeak
+
+Graphique affichant :
+
+Température (°C)
+
+Humidité (%)
+
+📌 Intervalle d’envoi : 1 seconde
+
