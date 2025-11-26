@@ -10,12 +10,12 @@
 #include "esp_http_client.h"
 #include "dht.h"
 
-#define WIFI_SSID "Ahmed"
-#define WIFI_PASS "ahmed123"
+#define WIFI_SSID "xxxxx"
+#define WIFI_PASS "xxxxxx"
 
 #define DHT_GPIO 4
 
-#define THINGSPEAK_API_KEY "6SCTLCWCMYXSAHGN"
+#define THINGSPEAK_API_KEY "xxxxxxxxxxxx"
 #define THINGSPEAK_URL "http://api.thingspeak.com/update?api_key=" THINGSPEAK_API_KEY
 
 static const char *TAG = "DHT11_ThingSpeak";
